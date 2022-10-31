@@ -1,0 +1,48 @@
+from random import choice
+
+
+with open("words.txt", "r") as WordList:
+  WordList = str(WordList.read()).split("\n")
+  word = choice(WordList).lower()
+
+  GuessArray = []
+  counter = 0
+
+
+  def guessing():
+    global counter
+    if counter >= 5:
+      print(f"The word was {word}.")
+      return None
+    guess = input("Guess here: ").lower()
+    if len(guess) != 5 or " " in guess or guess not in WordList:
+      print("There was an error. Please retype your guess.")
+      guessing()
+      
+    else:
+      for i in range(len(guess)):
+        if word[i:i+1] == guess[i:i+1]:
+          print(f"{guess[i:i+1]}:Correct!")
+          
+        elif guess[i:i+1] in word:
+          print(f"{guess[i:i+1]}:Wrong Place!")
+        else:
+          print(f"{guess[i:i+1]}:Wrong!")
+      GuessArray.append(list(guess))
+      for value in GuessArray:
+        print(value)
+      
+
+      if word == guess:
+        print("You got the right answer!")
+      else:
+        counter = counter + 1
+        guessing()
+        
+  guessing()
+
+
+
+
+
+
